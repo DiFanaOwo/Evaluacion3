@@ -81,7 +81,7 @@ $categorias = $conexion->query($sqlCategorias);
 
                 <div class="mb-3">
                 <label >Estado</label>
-                <select name="estado" class="form-select">" required>
+                <select name="estado" class="form-select" value="<?= $producto['estado'] ?>">" required>
                 <option value="">Seleccione estado</option>
                 <option value="disponible">Disponible</option>
                 <option value="agotado">Agotado</option>
