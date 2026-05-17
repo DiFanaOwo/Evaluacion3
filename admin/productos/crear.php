@@ -49,7 +49,6 @@ $categorias = $conexion->query("SELECT * FROM categorias");
                 <div class="mb-3">
                 <label >Estado</label>
                 <select name="estado" class="form-select" required>
-                <option value="">Seleccione estado</option>
                 <option value="disponible">Disponible</option>
                 <option value="agotado">Agotado</option>
                 </select>

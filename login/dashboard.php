@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 
 if (!isset($_SESSION["usuario"])) {
@@ -43,4 +43,30 @@ if (!isset($_SESSION["usuario"])) {
 </div>
 
 </body>
-</html>
+</html> -->
+<?php
+
+session_start();
+
+
+# SI NO ES ADMIN
+
+if($_SESSION["rol"] != "admin") {
+
+    header("Location: login.php");
+
+    exit();
+
+}
+
+# SI ES ADMIN
+if($_SESSION["rol"] == "admin") {
+
+    header("Location: ../admin/productos/index.php");
+
+exit();
+
+}
+
+
+?>

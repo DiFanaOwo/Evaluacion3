@@ -80,12 +80,38 @@ $categorias = $conexion->query($sqlCategorias);
                 </div>
 
                 <div class="mb-3">
-                <label >Estado</label>
-                <select name="estado" class="form-select" value="<?= $producto['estado'] ?>">" required>
-                <option value="">Seleccione estado</option>
-                <option value="disponible">Disponible</option>
-                <option value="agotado">Agotado</option>
-                </select>
+
+                <label>Estado</label>
+
+                <select
+                    name="estado"
+                    class="form-select"
+                    required
+                >
+
+                        <option
+                            value="disponible"
+                            <?= ($producto['estado'] == 'disponible')
+                                ? 'selected'
+                                : ''
+                            ?>
+                        >
+                            Disponible
+                        </option>
+
+                        <option
+                            value="agotado"
+
+                            <?= ($producto['estado'] == 'agotado')
+                                ? 'selected'
+                                : ''
+                            ?>
+                        >
+                            Agotado
+                        </option>
+
+                    </select>
+
                 </div>
 
 

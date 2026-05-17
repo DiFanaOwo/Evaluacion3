@@ -21,6 +21,154 @@
         </a>
 
     </div>
+    <!-- FILTROS -->
+
+<form method="GET" class="row mb-4">
+
+    <!-- BUSCAR NOMBRE -->
+    <div class="col-md-3">
+
+        <input
+            type="text"
+            name="nombre"
+            class="form-control"
+            placeholder="Buscar por nombre"
+
+            value="<?= $_GET['nombre'] ?? '' ?>"
+        >
+
+    </div>
+
+    <!-- CATEGORIA -->
+    <div class="col-md-3">
+
+        <select
+            name="categoria"
+            class="form-select"
+        >
+
+            <option value="">
+                Todas las categorías
+            </option>
+
+            <?php
+
+            $sqlCategorias = "SELECT * FROM categorias";
+
+            $categorias = $conexion->query($sqlCategorias);
+
+            while($cat = $categorias->fetch_assoc()) {
+
+            ?>
+
+                <option
+                    value="<?= $cat['id_categoria'] ?>"
+
+                    <?= (isset($_GET['categoria']) &&
+                        $_GET['categoria'] == $cat['id_categoria'])
+                        ? 'selected'
+                        : ''
+                    ?>
+                >
+
+                    <?= $cat['nombre_categoria'] ?>
+
+                </option>
+
+            <?php } ?>
+
+        </select>
+
+    </div>
+
+    <!-- ESTADO -->
+    <div class="col-md-2">
+
+        <select
+            name="estado"
+            class="form-select"
+        >
+
+            <option value="">
+                Todos
+            </option>
+
+            <option
+                value="disponible"
+
+                <?= (($_GET['estado'] ?? '') == 'disponible')
+                    ? 'selected'
+                    : ''
+                ?>
+            >
+                Disponible
+            </option>
+
+            <option
+                value="agotado"
+
+                <?= (($_GET['estado'] ?? '') == 'agotado')
+                    ? 'selected'
+                    : ''
+                ?>
+            >
+                Agotado
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- STOCK -->
+    <div class="col-md-2">
+
+        <select
+            name="stock"
+            class="form-select"
+        >
+
+            <option value="">
+                Stock
+            </option>
+
+            <option
+                value="con"
+
+                <?= (($_GET['stock'] ?? '') == 'con')
+                    ? 'selected'
+                    : ''
+                ?>
+            >
+                Con stock
+            </option>
+
+            <option
+                value="sin"
+
+                <?= (($_GET['stock'] ?? '') == 'sin')
+                    ? 'selected'
+                    : ''
+                ?>
+            >
+                Sin stock
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- BOTON -->
+    <div class="col-md-2">
+
+        <button class="btn btn-primary w-100">
+
+            Buscar
+
+        </button>
+
+    </div>
+
+</form>
 
     <table class="table table-bordered table-hover align-middle">
 
@@ -383,4 +531,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+<footer><?php include('../../includes/footer.php'); ?>
+</footer>
 </html>
