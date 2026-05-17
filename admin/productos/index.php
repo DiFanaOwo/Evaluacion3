@@ -1,6 +1,7 @@
 <?php include('../../config/conexion.php'); ?>
 <?php include('../../includes/header.php'); ?>
 
+
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>

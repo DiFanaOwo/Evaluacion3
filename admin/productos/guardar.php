@@ -39,3 +39,5 @@ foreach($_FILES['imagenes']['tmp_name'] as $key => $tmp) {
 header('Location: index.php');
 
 ?>
+<?php include('../../middlewares/admin.php'); ?>
+<?php include('../../middlewares/auth.php'); ?>
