@@ -1,5 +1,15 @@
 <?php
+session_start();
 require_once __DIR__ . '/../config/conexion.php';
+
+$cartCount = 0;
+$favoritesCount = 0;
+if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+    $cartCount = array_sum($_SESSION['cart']);
+}
+if (isset($_SESSION['favorites']) && is_array($_SESSION['favorites'])) {
+    $favoritesCount = count($_SESSION['favorites']);
+}
 
 $categories = [];
 $useCategoriasTable = false;
@@ -93,8 +103,8 @@ if (empty($categories)) {
 
             <div class="header-icons">
                 <button class="icon-btn" title="Mi Perfil"><i class="fas fa-user"></i></button>
-                <button class="icon-btn" title="Favoritos"><i class="fas fa-heart"></i><span class="icon-badge">3</span></button>
-                <button class="icon-btn" title="Carrito"><i class="fas fa-shopping-cart"></i><span class="icon-badge">1</span></button>
+                <a href="favoritos.php" class="icon-btn" title="Favoritos"><i class="fas fa-heart"></i><span class="icon-badge"><?php echo intval($favoritesCount); ?></span></a>
+                <a href="carrito.php" class="icon-btn" title="Carrito"><i class="fas fa-shopping-cart"></i><span class="icon-badge"><?php echo intval($cartCount); ?></span></a>
             </div>
         </div>
     </header>

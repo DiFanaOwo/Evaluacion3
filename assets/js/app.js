@@ -108,25 +108,26 @@ function setupSearch() {
         this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
     });
 
-    searchBox.addEventListener('input', function(e) {
-        clearTimeout(searchTimeout);
-        
-        searchTimeout = setTimeout(() => {
-            const query = e.target.value;
-            if (query.length > 0) {
-                performSearch(query);
-            }
-        }, 300);
-    });
-
     searchBox.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            performSearch(this.value);
+            e.preventDefault();
+            submitSearch(this.value);
         }
     });
 }
 
-function performSearch(query) {
+function submitSearch(query) {
+    if (!query || !query.trim()) {
+        showNotification('Ingresa un término para buscar.');
+        return;
+    }
+
+    const searchForm = document.querySelector('.search-form');
+    if (searchForm) {
+        searchForm.submit();
+        return;
+    }
+
     console.log(`Buscando: ${query}`);
     showNotification(`Buscando: "${query}"`);
 }
