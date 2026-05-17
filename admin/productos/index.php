@@ -1,12 +1,11 @@
 <?php include('../../config/conexion.php'); ?>
+<?php include('../../includes/header.php'); ?>
 
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/tablasAdmin.css">
 </head>
 <body>
 
@@ -162,7 +161,7 @@
 
         <button class="btn btn-primary w-100">
 
-            Buscar
+            Filtrar
 
         </button>
 
@@ -170,7 +169,7 @@
 
 </form>
 
-    <table class="table table-bordered table-hover align-middle">
+    <table class="table custom-table align-middle">
 
         <thead class="table-dark">
 
@@ -197,7 +196,58 @@
         $sql = "SELECT productos.*, categorias.nombre_categoria
                 FROM productos
                 INNER JOIN categorias
-                ON productos.id_categoria = categorias.id_categoria";
+                ON productos.id_categoria = categorias.id_categoria
+                WHERE 1=1";
+        # FILTRO NOMBRE
+
+if(!empty($_GET['nombre'])) {
+
+    $nombre = $_GET['nombre'];
+
+    $sql .= " AND productos.nombre
+    LIKE '%$nombre%'";
+
+}
+
+# FILTRO CATEGORIA
+
+if(!empty($_GET['categoria'])) {
+
+    $categoria = $_GET['categoria'];
+
+    $sql .= " AND productos.id_categoria =
+    '$categoria'";
+
+}
+
+# FILTRO ESTADO
+
+if(!empty($_GET['estado'])) {
+
+    $estado = $_GET['estado'];
+
+    $sql .= " AND productos.estado =
+    '$estado'";
+
+}
+
+# FILTRO STOCK
+
+if(!empty($_GET['stock'])) {
+
+    if($_GET['stock'] == "con") {
+
+        $sql .= " AND productos.stock > 0";
+
+    }
+
+    if($_GET['stock'] == "sin") {
+
+        $sql .= " AND productos.stock <= 0";
+
+    }
+
+}
 
         $resultado = $conexion->query($sql);
 
@@ -225,12 +275,9 @@
                     <?php if($imagen) { ?>
 
                         <img
-                            src="../../assets/uploads/productos/<?= $imagen['imagen'] ?>"
-                            width="80"
-                            height="80"
-                            style="object-fit: cover;"
-                            class="rounded"
-                        >
+    src="../../assets/uploads/productos/<?= $imagen['imagen'] ?>"
+    class="table-img"
+>
 
                     <?php } else { ?>
 
@@ -261,7 +308,7 @@
 
                     <!-- VER -->
                     <button
-                        class="btn btn-info btn-sm"
+                        class="btn btn-ver btn-sm"
                         data-bs-toggle="modal"
                         data-bs-target="#modal<?= $fila['id_producto'] ?>"
                     >
@@ -271,7 +318,7 @@
                     <!-- EDITAR -->
                     <a
                         href="editar.php?id=<?= $fila['id_producto'] ?>"
-                        class="btn btn-warning btn-sm"
+                        class="btn btn-editar btn-sm"
                     >
                         Editar
                     </a>
@@ -279,7 +326,7 @@
                     <!-- ELIMINAR -->
                     <a
                         href="eliminar.php?id=<?= $fila['id_producto'] ?>"
-                        class="btn btn-danger btn-sm"
+                        class="btn btn-eliminar btn-sm"
                         onclick="return confirm('¿Eliminar producto?')"
                     >
                         Eliminar

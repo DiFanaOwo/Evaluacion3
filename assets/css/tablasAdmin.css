@@ -1,0 +1,354 @@
+/* =========================
+   TABLA PRODUCTOS
+========================= */
+
+.custom-table {
+
+    border-radius: 20px;
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+}
+
+/* HEADER TABLA */
+
+.custom-table thead {
+
+    background: linear-gradient(
+        135deg,
+        #00C9D7,
+        #C77DFF
+    );
+
+    color: white;
+
+}
+
+.custom-table thead th {
+
+    border: none;
+
+    padding: 16px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+/* BODY */
+
+.custom-table tbody tr {
+
+    transition: 0.3s;
+
+}
+
+.custom-table tbody tr:hover {
+
+    background: rgba(0,201,215,0.08);
+
+    transform: scale(1.002);
+
+}
+
+.custom-table td {
+
+    vertical-align: middle;
+
+    padding: 14px;
+
+}
+
+/* IMAGEN */
+
+.table-img {
+
+    width: 80px;
+
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 3px solid #00C9D7;
+
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn-ver {
+
+    background: #C77DFF;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+}
+
+.btn-ver:hover {
+
+    background: #b45eff;
+
+    color: white;
+
+}
+
+/* EDITAR */
+
+.btn-editar {
+
+    background: #FFD700;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+}
+
+.btn-editar:hover {
+
+    background: #ffc400;
+
+}
+
+/* ELIMINAR */
+
+.btn-eliminar {
+
+    background: #FF6B9D;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+}
+
+.btn-eliminar:hover {
+
+    background: #ff4f89;
+
+    color: white;
+
+}
+
+/* FILTRAR */
+
+.btn-filtrar {
+
+    background: #00C9D7;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+}
+
+.btn-filtrar:hover {
+
+    background: #00aeba;
+
+    color: white;
+
+}
+
+/* AGREGAR */
+
+.btn-agregar {
+
+    background: #39FF14;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+}
+
+.btn-agregar:hover {
+
+    background: #2ee000;
+
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+.custom-form-card {
+
+    background: white;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.08);
+
+    position: relative;
+
+    z-index: 10;
+
+}
+
+/* HEADER FORM */
+
+.form-header {
+
+    background: linear-gradient(
+        135deg,
+        #00C9D7,
+        #C77DFF
+    );
+
+    color: white;
+
+    padding: 25px;
+
+}
+
+.form-header h2 {
+
+    margin: 0;
+
+    font-weight: 700;
+
+}
+
+/* INPUTS */
+
+.form-control,
+.form-select {
+
+    border-radius: 14px;
+
+    border: 2px solid #e5e5e5;
+
+    padding: 12px;
+
+    transition: 0.3s;
+
+}
+
+/* FOCUS */
+
+.form-control:focus,
+.form-select:focus {
+
+    border-color: #00C9D7;
+
+    box-shadow:
+        0 0 0 0.2rem rgba(0,201,215,0.2);
+
+}
+
+/* LABELS */
+
+label {
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+/* BOTON GUARDAR */
+
+.btn-guardar {
+
+    background: #00C9D7;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 12px 25px;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+
+}
+
+.btn-guardar:hover {
+
+    background: #00aeba;
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+/* BOTON VOLVER */
+
+.btn-volver {
+
+    background: #FFD700;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 12px 25px;
+
+    font-weight: 700;
+
+}
+
+.btn-volver:hover {
+
+    background: #ffc400;
+
+}
+
+/* IMAGENES */
+
+.preview-img {
+
+    width: 120px;
+
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    border: 3px solid #C77DFF;
+
+    margin-right: 10px;
+
+    margin-bottom: 10px;
+
+}

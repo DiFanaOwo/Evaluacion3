@@ -17,13 +17,14 @@ $sqlCategorias = "SELECT * FROM categorias";
 $categorias = $conexion->query($sqlCategorias);
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Producto</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS EXCLUSIVO DE FORMULARIOS -->
+<link rel="stylesheet" href="../../assets/css/forms.css">
 </head>
 <body>
 

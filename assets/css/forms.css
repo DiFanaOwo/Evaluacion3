@@ -1,0 +1,165 @@
+/* ==========================================================================
+   ESTILOS PERSONALIZADOS PARA FORMULARIOS - INGENIOSOS
+   ========================================================================== */
+
+:root {
+    --turquesa: #00C9D7;
+    --amarillo: #FFD700;
+    --rosado: #FF6B9D;
+    --morado: #C77DFF;
+    --verde-lima: #39FF14;
+    --gris-fondo: #f8f9fa;
+    --shadow-suave: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Fondo general de la página de formularios */
+body {
+    background-color: var(--gris-fondo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* BLINDAJE ANTI-BLOQUEOS (Capas decorativas atrás) */
+.geometric-decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Envía los círculos al fondo absoluto */
+    pointer-events: none; /* Hace que los clicks pasen de largo */
+}
+
+.shape-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px); /* Un leve desenfoque para que se vea moderno y no distraiga */
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Contenedor principal con prioridad de click */
+.container {
+    position: relative;
+    z-index: 2; /* Por encima del fondo */
+}
+
+/* Estilización de la Tarjeta (Card) */
+.card {
+    border: none;
+    border-radius: 20px; /* Bordes redondeados más amigables/infantiles */
+    overflow: hidden;
+    box-shadow: var(--shadow-suave);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* Efecto vidrio esmerilado sutil */
+    transition: transform 0.3s ease;
+}
+
+/* Headers de las tarjetas según la acción */
+.card-header {
+    padding: 1.5rem;
+    border-bottom: none;
+    font-weight: bold;
+}
+
+/* Modificamos los colores por defecto de Bootstrap para que se adapten a tu paleta */
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--turquesa), var(--morado)) !important;
+}
+
+.card-header.bg-warning {
+    background: linear-gradient(135deg, var(--amarillo), var(--rosado)) !important;
+    color: #fff !important; /* Forzar texto blanco en editar para mejor contraste */
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs y Selects Estilizados */
+.form-label, label {
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    color: #2d3748;
+}
+
+/* Efecto Focus (Cuando el usuario hace click para escribir) */
+.form-control:focus, .form-select:focus {
+    border-color: var(--turquesa);
+    box-shadow: 0 0 0 4px rgba(0, 201, 215, 0.15);
+    background-color: #fff;
+}
+
+/* Textarea específico */
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Botones con los colores de tu marca */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-success {
+    background-color: var(--rosado) !important; /* Acciones principales en rosa según tu paleta */
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+}
+
+.btn-success:hover {
+    background-color: #e05284 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 107, 157, 0.4);
+}
+
+.btn-secondary {
+    background-color: #edf2f7 !important;
+    color: #4a5568 !important;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0 !important;
+    transform: translateY(-2px);
+}
+
+/* Estilos de la galería de imágenes actuales (Editar) */
+.card.shadow-sm {
+    border: 2px solid #edf2f7;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    border-bottom: 2px solid #edf2f7;
+    transition: transform 0.3s ease;
+}
+
+.card.shadow-sm:hover .card-img-top {
+    transform: scale(1.05); /* Efecto zoom divertido al pasar el mouse por las fotos */
+}
+
+/* Checkbox de eliminar imagen */
+.text-danger input[type="checkbox"] {
+    accent-color: var(--rosado); /* El check se vuelve rosa al marcarlo */
+    transform: scale(1.2);
+    margin-right: 8px;
+    cursor: pointer;
+}

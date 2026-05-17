@@ -1,16 +1,16 @@
 <?php
 include('../../config/conexion.php');
-
 $categorias = $conexion->query("SELECT * FROM categorias");
+
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
     <title>Crear Producto</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">    
+    <!-- CSS EXCLUSIVO DE FORMULARIOS -->
+<link rel="stylesheet" href="../../assets/css/forms.css">
 </head>
 <body>
 
