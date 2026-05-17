@@ -1,0 +1,420 @@
+/* ============================================
+   ESTILOS AVANZADOS - INGENIOSOS
+   ============================================ */
+
+/* ============================================
+   EFECTO GLASS MORPHISM (Vidrio Frosted)
+   ============================================ */
+.glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ============================================
+   GRADIENTES PREMIUM
+   ============================================ */
+.gradient-turquoise {
+    background: linear-gradient(135deg, #00C9D7 0%, #5FE3E8 100%);
+}
+
+.gradient-warm {
+    background: linear-gradient(135deg, #FFD700 0%, #FF6B9D 100%);
+}
+
+.gradient-cool {
+    background: linear-gradient(135deg, #C77DFF 0%, #00C9D7 100%);
+}
+
+.gradient-fun {
+    background: linear-gradient(135deg, #39FF14 0%, #FFD700 50%, #FF6B9D 100%);
+}
+
+/* ============================================
+   SHADOWS PREMIUM
+   ============================================ */
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 201, 215, 0.1);
+}
+
+.shadow-md {
+    box-shadow: 0 8px 20px rgba(0, 201, 215, 0.15);
+}
+
+.shadow-lg {
+    box-shadow: 0 16px 40px rgba(0, 201, 215, 0.2);
+}
+
+.shadow-xl {
+    box-shadow: 0 24px 48px rgba(0, 201, 215, 0.25);
+}
+
+/* ============================================
+   BORDES REDONDEADOS KAWAII
+   ============================================ */
+.rounded-sm { border-radius: 8px; }
+.rounded-md { border-radius: 16px; }
+.rounded-lg { border-radius: 24px; }
+.rounded-xl { border-radius: 32px; }
+.rounded-full { border-radius: 50%; }
+
+/* ============================================
+   TRANSICIONES FLUIDAS
+   ============================================ */
+.transition-all {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.transition-smooth {
+    transition: all 0.4s ease;
+}
+
+.transition-slow {
+    transition: all 0.6s ease;
+}
+
+/* ============================================
+   EFECTOS ESPECIALES INGENIOSOS
+   ============================================ */
+
+/* Efecto Shimmer (Brillo) */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        transparent 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Efecto Glow (Brillo de Neon) */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 201, 215, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 201, 215, 0.8);
+    }
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Efecto Float (Flotante) */
+@keyframes floatElement {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.float {
+    animation: floatElement 3s ease-in-out infinite;
+}
+
+/* Efecto Bounce (Rebote) */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+/* ============================================
+   ELEMENTOS INFANTILES ESPECIALES
+   ============================================ */
+
+/* Etiqueta de "Nuevo" */
+.badge-new {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF6B9D, #FF8C42);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+}
+
+/* Etiqueta de "Bestseller" */
+.badge-bestseller {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700, #FFC700);
+    color: #2D3436;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Etiqueta de "Oferta" */
+.badge-offer {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF6B9D, #C77DFF);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(199, 125, 255, 0.3);
+}
+
+/* ============================================
+   BOTONES ESPECIALES
+   ============================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00C9D7, #5FE3E8);
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 201, 215, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 201, 215, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #FFD700, #FFC700);
+    color: #2D3436;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.4);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, #FF6B9D, #FF8C42);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+}
+
+.btn-accent:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(255, 107, 157, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-turquoise);
+    color: var(--primary-turquoise);
+}
+
+.btn-outline:hover {
+    background: var(--primary-turquoise);
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   TARJETAS MEJORADAS
+   ============================================ */
+
+.card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5F9FB 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 2px solid rgba(0, 201, 215, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 201, 215, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(0, 201, 215, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 201, 215, 0.2);
+    border-color: rgba(0, 201, 215, 0.3);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card.featured {
+    background: linear-gradient(135deg, #00C9D7 0%, #5FE3E8 100%);
+    color: white;
+    border: none;
+}
+
+.card.featured .card-title {
+    color: white;
+}
+
+.card.featured .card-text {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* ============================================
+   INPUTS Y FORMS
+   ============================================ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid rgba(0, 201, 215, 0.2);
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+    color: var(--text-light);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-turquoise);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 201, 215, 0.1);
+}
+
+/* ============================================
+   SPINNER / LOADER
+   ============================================ */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 201, 215, 0.2);
+    border-top: 4px solid var(--primary-turquoise);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.spinner.small {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+    border-top-width: 2px;
+}
+
+.spinner.large {
+    width: 56px;
+    height: 56px;
+    border-width: 5px;
+    border-top-width: 5px;
+}
+
+/* ============================================
+   ESTADO HOVER Y ACTIVO GLOBAL
+   ============================================ */
+
+@media (hover: hover) {
+    button:hover {
+        cursor: pointer;
+    }
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   MODO OSCURO (Futuro)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(0, 201, 215, 0.2);
+    }
+}
