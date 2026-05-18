@@ -1,0 +1,446 @@
+/* ============================================
+   AUTH PAGES - LOGIN / REGISTRO / 2FA
+   ============================================ */
+
+:root {
+
+  --primary-turquoise: #00C9D7;
+  --primary-turquoise-dark: #00A8B8;
+  --primary-turquoise-light: #5FE3E8;
+
+  --accent-yellow: #FFD700;
+  --accent-pink: #FF6B9D;
+  --accent-purple: #C77DFF;
+  --accent-lime: #39FF14;
+
+  --light-bg: #F0F8F9;
+
+  --white: #FFFFFF;
+
+  --text-dark: #2D3436;
+  --text-light: #636E72;
+
+  --shadow-soft:
+  0 8px 24px rgba(0, 201, 215, 0.12);
+
+  --shadow-hover:
+  0 16px 32px rgba(0, 201, 215, 0.18);
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   BODY
+   ============================================ */
+
+body{
+
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+
+  font-family:
+  'Segoe UI',
+  Tahoma,
+  Geneva,
+  Verdana,
+  sans-serif;
+
+  background:
+  linear-gradient(
+    135deg,
+    #F0F8F9 0%,
+    #E0F7FB 100%
+  );
+
+  overflow-x: hidden;
+
+  position: relative;
+}
+
+/* ============================================
+   DECORACIONES
+   ============================================ */
+
+body::before{
+
+  content: '';
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  background:
+  rgba(199, 125, 255, 0.15);
+
+  animation:
+  float 6s ease-in-out infinite;
+}
+
+body::after{
+
+  content: '';
+
+  position: absolute;
+
+  bottom: -100px;
+  left: -100px;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background:
+  rgba(0, 201, 215, 0.15);
+
+  animation:
+  float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,100%{
+    transform:
+    translateY(0px);
+  }
+
+  50%{
+    transform:
+    translateY(-20px);
+  }
+}
+
+/* ============================================
+   CARD
+   ============================================ */
+
+.auth-card{
+
+  width: 100%;
+  max-width: 430px;
+
+  background:
+  rgba(255,255,255,0.92);
+
+  border-radius: 32px;
+
+  padding: 2.5rem;
+
+  box-shadow:
+  var(--shadow-soft);
+
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+  2px solid rgba(0, 201, 215, 0.12);
+
+  animation:
+  fadeInUp 0.7s ease;
+}
+
+/* Línea superior */
+
+.auth-card::before{
+
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 8px;
+
+  background:
+  linear-gradient(
+    90deg,
+    var(--primary-turquoise),
+    var(--accent-purple),
+    var(--accent-pink),
+    var(--accent-yellow)
+  );
+}
+
+/* ============================================
+   TITULOS
+   ============================================ */
+
+.auth-title{
+
+  font-size: 2rem;
+
+  font-weight: 900;
+
+  text-align: center;
+
+  color: var(--text-dark);
+
+  margin-bottom: 0.5rem;
+
+  letter-spacing: -1px;
+}
+
+.auth-subtitle{
+
+  text-align: center;
+
+  color: var(--text-light);
+
+  margin-bottom: 2rem;
+
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   INPUTS
+   ============================================ */
+
+.form-control{
+
+  border-radius: 18px !important;
+
+  border:
+  2px solid transparent !important;
+
+  padding:
+  0.95rem 1rem !important;
+
+  background:
+  rgba(240,248,249,0.9) !important;
+
+  font-size: 0.95rem;
+
+  transition:
+  all 0.3s ease !important;
+
+  color:
+  var(--text-dark) !important;
+}
+
+.form-control::placeholder{
+
+  color:
+  #94A3B8;
+}
+
+.form-control:focus{
+
+  border:
+  2px solid var(--primary-turquoise) !important;
+
+  box-shadow:
+  0 0 0 4px rgba(0, 201, 215, 0.12) !important;
+
+  background:
+  var(--white) !important;
+}
+
+/* ============================================
+   TEXTO PASSWORD
+   ============================================ */
+
+.password-info{
+
+  font-size: 0.82rem;
+
+  color: var(--text-light);
+
+  margin-top: -0.5rem;
+
+  margin-bottom: 1rem;
+
+  padding-left: 0.4rem;
+}
+
+/* ============================================
+   BOTON
+   ============================================ */
+
+.btn-auth{
+
+  width: 100%;
+
+  border: none;
+
+  border-radius: 50px;
+
+  padding: 1rem;
+
+  font-size: 1rem;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  background:
+  linear-gradient(
+    135deg,
+    var(--primary-turquoise),
+    var(--accent-purple)
+  );
+
+  color: var(--white);
+
+  box-shadow:
+  0 10px 22px rgba(0, 201, 215, 0.2);
+}
+
+.btn-auth:hover{
+
+  transform:
+  translateY(-3px);
+
+  box-shadow:
+  0 16px 28px rgba(0, 201, 215, 0.28);
+
+  background:
+  linear-gradient(
+    135deg,
+    var(--accent-purple),
+    var(--accent-pink)
+  );
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+.auth-link{
+
+  display: inline-block;
+
+  margin-top: 1.5rem;
+
+  color:
+  var(--primary-turquoise-dark);
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  transition: 0.3s ease;
+}
+
+.auth-link:hover{
+
+  color:
+  var(--accent-pink);
+
+  transform:
+  translateY(-1px);
+}
+
+/* ============================================
+   ALERTAS
+   ============================================ */
+
+.alert{
+
+  border: none !important;
+
+  border-radius: 18px !important;
+
+  padding: 1rem !important;
+
+  font-weight: 600;
+
+  margin-bottom: 1.5rem;
+}
+
+.alert-danger{
+
+  background:
+  rgba(255, 107, 157, 0.12) !important;
+
+  color:
+  #D63384 !important;
+}
+
+.alert-warning{
+
+  background:
+  rgba(255, 215, 0, 0.18) !important;
+
+  color:
+  #856404 !important;
+}
+
+.alert-success{
+
+  background:
+  rgba(57,255,20,0.12) !important;
+
+  color:
+  #198754 !important;
+}
+
+/* ============================================
+   ANIMACION
+   ============================================ */
+
+@keyframes fadeInUp {
+
+  from{
+
+    opacity: 0;
+
+    transform:
+    translateY(30px);
+  }
+
+  to{
+
+    opacity: 1;
+
+    transform:
+    translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media(max-width: 500px){
+
+  .auth-card{
+
+    padding: 2rem 1.5rem;
+
+    border-radius: 24px;
+  }
+
+  .auth-title{
+
+    font-size: 1.7rem;
+  }
+
+  .btn-auth{
+
+    padding: 0.9rem;
+  }
+}

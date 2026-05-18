@@ -1,19 +1,19 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Verificar login
-if(!isset($_SESSION["usuario"])){
+if (!isset($_SESSION["usuario"])) {
 
-    header("Location: ../login/login.php");
+    header("Location: /evaluacion3Web/Evaluacion3/login/login.php");
     exit();
 
 }
 
-// Verificar rol admin
-if($_SESSION["rol"] != "admin"){
+if ($_SESSION["rol"] != "admin") {
 
-    header("Location: ../dashboard.php");
+    header("Location: /evaluacion3Web/Evaluacion3/index.php");
     exit();
 
 }

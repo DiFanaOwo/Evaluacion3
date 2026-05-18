@@ -1,6 +1,7 @@
 <?php
 
 include('../../config/conexion.php');
+include("../../middlewares/admin.php");
 
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];

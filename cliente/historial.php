@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../middlewares/auth.php");
 $orders = isset($_SESSION['orders']) && is_array($_SESSION['orders']) ? $_SESSION['orders'] : [];
 $cartCount = isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 $favoritesCount = isset($_SESSION['favorites']) && is_array($_SESSION['favorites']) ? count($_SESSION['favorites']) : 0;

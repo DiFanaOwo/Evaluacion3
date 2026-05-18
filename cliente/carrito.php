@@ -2,6 +2,9 @@
 session_start();
 require_once __DIR__ . '/../config/conexion.php';
 
+include("../middlewares/auth.php");
+
+
 if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }

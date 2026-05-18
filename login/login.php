@@ -1,5 +1,5 @@
-
 <?php
+
 session_start();
 include("../config/conexion.php");
 
@@ -11,8 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST["password"]);
 
     $sql = "SELECT * FROM usuario WHERE correo = ?";
+
     $stmt = $conexion->prepare($sql);
+
     $stmt->bind_param("s", $correo);
+
     $stmt->execute();
 
     $resultado = $stmt->get_result();
@@ -33,72 +36,107 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           WHERE id_usuario = ?";
 
             $stmtUpdate = $conexion->prepare($sqlUpdate);
-            $stmtUpdate->bind_param("si", $codigo2FA, $usuario["id_usuario"]);
+
+            $stmtUpdate->bind_param(
+                "si",
+                $codigo2FA,
+                $usuario["id_usuario"]
+            );
+
             $stmtUpdate->execute();
 
-            // Guardar temporalmente usuario
+            // Guardar usuario temporal
             $_SESSION["temp_usuario"] = $usuario["id_usuario"];
 
-            // Simulación de envío
+            // Simulación código
             $_SESSION["codigo_mostrar"] = $codigo2FA;
 
             header("Location: verificar_2fa.php");
             exit();
 
         } else {
+
             $mensaje = "Contraseña incorrecta";
+
         }
 
     } else {
+
         $mensaje = "Correo no encontrado";
+
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar Sesión</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="css.css">
+
 </head>
-<body class="bg-primary d-flex justify-content-center align-items-center vh-100">
 
-<div class="card p-4 shadow" style="width:400px;">
+<body>
 
-    <h2 class="text-center mb-4">Login</h2>
+    <div class="auth-card">
 
-    <?php if($mensaje != ""): ?>
-        <div class="alert alert-danger">
-            <?php echo $mensaje; ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="POST">
-
-        <input type="email"
-               name="correo"
-               class="form-control mb-3"
-               placeholder="Correo">
-
-        <input type="password"
-               name="password"
-               class="form-control mb-3"
-               placeholder="Contraseña">
-
-        <button class="btn btn-dark w-100">
+        <h2 class="auth-title">
             Iniciar Sesión
-        </button>
+        </h2>
 
-    </form>
+        <p class="text-center mb-4">
+            Bienvenido nuevamente
+        </p>
 
-    <a href="registro.php" class="mt-3 text-center">
-        Crear cuenta
-    </a>
+        <?php if($mensaje != ""): ?>
 
-</div>
+            <div class="alert alert-danger">
+                <?php echo $mensaje; ?>
+            </div>
+
+        <?php endif; ?>
+
+        <form method="POST">
+
+            <input
+                type="email"
+                name="correo"
+                class="form-control mb-3"
+                placeholder="Correo electrónico"
+                required>
+
+            <input
+                type="password"
+                name="password"
+                class="form-control mb-4"
+                placeholder="Contraseña"
+                required>
+
+            <button class="btn-auth">
+                Ingresar
+            </button>
+
+        </form>
+
+        <div class="text-center mt-4">
+
+            <a href="registro.php" class="auth-link">
+                ¿No tienes cuenta? Regístrate
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
