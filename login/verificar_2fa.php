@@ -43,8 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         unset($_SESSION["temp_usuario"]);
 
-        header("Location: dashboard.php");
-        exit();
+if ($usuario["rol"] == "admin") {
+    header("Location: dashboard.php");
+} else {
+    header("Location: ../cliente/productos.php");
+}
+
+exit();
 
     } else {
         $mensaje = "Código incorrecto";
@@ -56,28 +61,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Verificar 2FA</title>
+    <title>Verificación 2FA</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="css.css">
 </head>
-<body class="bg-secondary d-flex justify-content-center align-items-center vh-100">
 
-<div class="card p-4 shadow" style="width:400px;">
+<body>
 
-    <h2 class="text-center mb-4">Verificación 2FA</h2>
+<div class="auth-card">
+
+    <h1 class="auth-title">
+        Verificación 2FA
+    </h1>
+
+    <p class="auth-subtitle">
+        Ingresa el código temporal para continuar
+    </p>
 
     <div class="alert alert-warning text-center">
+
         Código temporal:
+
         <strong>
             <?php echo $_SESSION["codigo_mostrar"]; ?>
         </strong>
+
     </div>
 
     <?php if($mensaje != ""): ?>
+
         <div class="alert alert-danger">
             <?php echo $mensaje; ?>
         </div>
+
     <?php endif; ?>
 
     <form method="POST">
@@ -87,7 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                class="form-control mb-3"
                placeholder="Ingrese el código">
 
-        <button class="btn btn-success w-100">
+        <button class="btn-auth">
+            <i class="fas fa-check-circle"></i>
             Verificar
         </button>
 

@@ -1,17 +1,28 @@
 <?php
 session_start();
+
 $cartCount = 0;
 $favoritesCount = 0;
+
+/* FAVORITOS */
 if (!isset($_SESSION['favorites']) || !is_array($_SESSION['favorites'])) {
     $_SESSION['favorites'] = [];
 }
+
 $favoriteIds = array_values(array_filter($_SESSION['favorites'], 'intval'));
+
+/* CARRITO */
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     $cartCount = array_sum($_SESSION['cart']);
 }
+
+/* CONTADOR FAVORITOS */
 if (!empty($favoriteIds)) {
     $favoritesCount = count($favoriteIds);
 }
+
+/* VERIFICAR SESIÓN */
+$isLoggedIn = isset($_SESSION['usuario_id']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,48 +44,95 @@ if (!empty($favoriteIds)) {
     </div>
 
     <!-- HEADER FISHER-PRICE STYLE -->
-    <header class="header">
-        <div class="header-content">
-            <!-- LOGO -->
-            <a href="index.php" class="logo">
-                <img src="../assets/uploads/logo-ingeniosos.jpeg" alt="Logo Ingeniosos" class="logo-img-real">
-                <span class="logo-text">Ingeniosos</span>
+<header class="header">
+    <div class="header-content">
+
+        <!-- LOGO -->
+        <a href="index.php" class="logo">
+            <img src="../assets/uploads/logo-ingeniosos.jpeg" alt="Logo Ingeniosos" class="logo-img-real">
+            <span class="logo-text">Ingeniosos</span>
+        </a>
+
+        <!-- NAVBAR CENTRAL -->
+        <nav class="navbar">
+            <button class="nav-btn active">
+                <i class="fas fa-home"></i> Inicio
+            </button>
+
+            <a href="productos.php" class="nav-btn">
+                <i class="fas fa-book"></i> Libros Didácticos
             </a>
 
-            <!-- NAVBAR CENTRAL -->
-            <nav class="navbar">
-                <button class="nav-btn active">
-                    <i class="fas fa-home"></i> Inicio
-                </button>
-                <a href="productos.php" class="nav-btn">
-                    <i class="fas fa-book"></i> Libros Didácticos
-                </a>
-                <a href="historial.php" class="nav-btn">
-                    <i class="fas fa-clock"></i> Historial
-                </a>
-            </nav>
+            <a href="historial.php" class="nav-btn">
+                <i class="fas fa-clock"></i> Historial
+            </a>
+        </nav>
 
-            <!-- SEARCH BAR -->
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="¿Qué estás buscando?">
-            </div>
-
-            <!-- HEADER ICONS -->
-            <div class="header-icons">
-                <button class="icon-btn" title="Mi Perfil">
-                    <i class="fas fa-user"></i>
-                </button>
-                <a href="favoritos.php" class="icon-btn" title="Favoritos">
-                    <i class="fas fa-heart"></i>
-                    <span class="icon-badge"><?php echo intval($favoritesCount); ?></span>
-                </a>
-                <a href="carrito.php" class="icon-btn" title="Carrito">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="icon-badge"><?php echo intval($cartCount); ?></span>
-                </a>
-            </div>
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="¿Qué estás buscando?">
         </div>
-    </header>
+
+        <!-- HEADER ICONS -->
+<div class="header-icons">
+
+    <?php if (isset($_SESSION["usuario"])): ?>
+
+        <!-- PERFIL -->
+        <div class="profile-menu">
+
+            <button class="icon-btn" id="profileBtn" title="Mi Perfil">
+                <i class="fas fa-user"></i>
+            </button>
+
+            <div class="profile-dropdown" id="profileDropdown">
+
+                <div class="profile-name">
+                    <?php echo $_SESSION['nombre'] ?? 'Usuario'; ?>
+                </div>
+
+                <div class="profile-email">
+                    <?php echo $_SESSION['correo'] ?? ''; ?>
+                </div>
+
+                <a href="../login/logout.php" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar sesión
+                </a>
+
+            </div>
+
+        </div>
+
+    <?php else: ?>
+
+        <!-- LOGIN -->
+        <a href="../login/login.php" class="login-btn">
+            <i class="fas fa-right-to-bracket"></i>
+            <span>Iniciar sesión</span>
+        </a>
+
+    <?php endif; ?>
+
+    <!-- FAVORITOS -->
+    <a href="favoritos.php" class="icon-btn" title="Favoritos">
+        <i class="fas fa-heart"></i>
+        <span class="icon-badge">
+            <?php echo intval($favoritesCount); ?>
+        </span>
+    </a>
+
+    <!-- CARRITO -->
+    <a href="carrito.php" class="icon-btn" title="Carrito">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="icon-badge">
+            <?php echo intval($cartCount); ?>
+        </span>
+    </a>
+
+</div>
+    </div>
+</header>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
@@ -454,5 +512,20 @@ if (!empty($favoriteIds)) {
 
     <!-- SCRIPTS -->
     <script src="../assets/js/app.js"></script>
+
+    <script>
+const profileBtn = document.getElementById("profileBtn");
+const profileDropdown = document.getElementById("profileDropdown");
+
+profileBtn.addEventListener("click", () => {
+    profileDropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", (e) => {
+    if (!document.querySelector(".profile-menu").contains(e.target)) {
+        profileDropdown.classList.remove("show");
+    }
+});
+</script>
 </body>
 </html>
