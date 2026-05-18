@@ -157,9 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
                 title="Mínimo 8 caracteres, una mayúscula, una minúscula y un número">
 
-            <small class="text-light d-block mb-3">
-                Debe contener mínimo 8 caracteres,
-                una mayúscula, una minúscula y un número.
+           <small class="d-block mb-3" style="color: black;">
+            Debe contener mínimo 8 caracteres,
+            una mayúscula, una minúscula y un número.
             </small>
 
             <input
