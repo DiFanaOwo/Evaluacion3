@@ -10,472 +10,476 @@
 </head>
 <body>
 
-<div class="container mt-5">
+        <div class="container mt-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <h2>Lista de Productos</h2>
+                <h2>Lista de Productos</h2>
 
-        <a href="crear.php" class="btn btn-primary">
-            Agregar Producto
-        </a>
+                <a href="crear.php" class="btn btn-primary">
+                    Agregar Producto
+                </a>
 
-    </div>
-    <!-- FILTROS -->
+            </div>
+            <!-- FILTROS -->
 
-<form method="GET" class="row mb-4">
+        <form method="GET" class="row mb-4">
 
-    <!-- BUSCAR NOMBRE -->
-    <div class="col-md-3">
+            <!-- BUSCAR NOMBRE -->
+            <div class="col-md-3">
 
-        <input
-            type="text"
-            name="nombre"
-            class="form-control"
-            placeholder="Buscar por nombre"
+                <input
+                    type="text"
+                    name="nombre"
+                    class="form-control"
+                    placeholder="Buscar por nombre"
 
-            value="<?= $_GET['nombre'] ?? '' ?>"
-        >
-
-    </div>
-
-    <!-- CATEGORIA -->
-    <div class="col-md-3">
-
-        <select
-            name="categoria"
-            class="form-select"
-        >
-
-            <option value="">
-                Todas las categorías
-            </option>
-
-            <?php
-
-            $sqlCategorias = "SELECT * FROM categorias";
-
-            $categorias = $conexion->query($sqlCategorias);
-
-            while($cat = $categorias->fetch_assoc()) {
-
-            ?>
-
-                <option
-                    value="<?= $cat['id_categoria'] ?>"
-
-                    <?= (isset($_GET['categoria']) &&
-                        $_GET['categoria'] == $cat['id_categoria'])
-                        ? 'selected'
-                        : ''
-                    ?>
+                    value="<?= $_GET['nombre'] ?? '' ?>"
                 >
 
-                    <?= $cat['nombre_categoria'] ?>
+            </div>
 
-                </option>
+            <!-- CATEGORIA -->
+            <div class="col-md-3">
 
-            <?php } ?>
+                <select
+                    name="categoria"
+                    class="form-select"
+                >
 
-        </select>
+                    <option value="">
+                        Todas las categorías
+                    </option>
 
-    </div>
+                    <?php
 
-    <!-- ESTADO -->
-    <div class="col-md-2">
+                    $sqlCategorias = "SELECT * FROM categorias";
 
-        <select
-            name="estado"
-            class="form-select"
-        >
+                    $categorias = $conexion->query($sqlCategorias);
 
-            <option value="">
-                Todos
-            </option>
+                    while($cat = $categorias->fetch_assoc()) {
 
-            <option
-                value="disponible"
+                    ?>
 
-                <?= (($_GET['estado'] ?? '') == 'disponible')
-                    ? 'selected'
-                    : ''
-                ?>
-            >
-                Disponible
-            </option>
+                        <option
+                            value="<?= $cat['id_categoria'] ?>"
 
-            <option
-                value="agotado"
+                            <?= (isset($_GET['categoria']) &&
+                                $_GET['categoria'] == $cat['id_categoria'])
+                                ? 'selected'
+                                : ''
+                            ?>
+                        >
 
-                <?= (($_GET['estado'] ?? '') == 'agotado')
-                    ? 'selected'
-                    : ''
-                ?>
-            >
-                Agotado
-            </option>
+                            <?= $cat['nombre_categoria'] ?>
 
-        </select>
-
-    </div>
-
-    <!-- STOCK -->
-    <div class="col-md-2">
-
-        <select
-            name="stock"
-            class="form-select"
-        >
-
-            <option value="">
-                Stock
-            </option>
-
-            <option
-                value="con"
-
-                <?= (($_GET['stock'] ?? '') == 'con')
-                    ? 'selected'
-                    : ''
-                ?>
-            >
-                Con stock
-            </option>
-
-            <option
-                value="sin"
-
-                <?= (($_GET['stock'] ?? '') == 'sin')
-                    ? 'selected'
-                    : ''
-                ?>
-            >
-                Sin stock
-            </option>
-
-        </select>
-
-    </div>
-
-    <!-- BOTON -->
-    <div class="col-md-2">
-
-        <button class="btn btn-primary w-100">
-
-            Filtrar
-
-        </button>
-
-    </div>
-
-</form>
-
-    <table class="table custom-table align-middle">
-
-        <thead class="table-dark">
-
-            <tr>
-
-                <th>ID</th>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Categoría</th>
-                <th>Estado</th>
-                <th>Ventas Totales</th>
-                <th>Acciones</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-        <?php
-
-        $sql = "SELECT productos.*, categorias.nombre_categoria
-                FROM productos
-                INNER JOIN categorias
-                ON productos.id_categoria = categorias.id_categoria
-                WHERE 1=1";
-        # FILTRO NOMBRE
-
-if(!empty($_GET['nombre'])) {
-
-    $nombre = $_GET['nombre'];
-
-    $sql .= " AND productos.nombre
-    LIKE '%$nombre%'";
-
-}
-
-# FILTRO CATEGORIA
-
-if(!empty($_GET['categoria'])) {
-
-    $categoria = $_GET['categoria'];
-
-    $sql .= " AND productos.id_categoria =
-    '$categoria'";
-
-}
-
-# FILTRO ESTADO
-
-if(!empty($_GET['estado'])) {
-
-    $estado = $_GET['estado'];
-
-    $sql .= " AND productos.estado =
-    '$estado'";
-
-}
-
-# FILTRO STOCK
-
-if(!empty($_GET['stock'])) {
-
-    if($_GET['stock'] == "con") {
-
-        $sql .= " AND productos.stock > 0";
-
-    }
-
-    if($_GET['stock'] == "sin") {
-
-        $sql .= " AND productos.stock <= 0";
-
-    }
-
-}
-
-        $resultado = $conexion->query($sql);
-
-        while($fila = $resultado->fetch_assoc()) {
-
-            # OBTENER PRIMERA IMAGEN
-
-            $sqlImagen = "SELECT * FROM producto_imagenes
-            WHERE id_producto = ".$fila['id_producto']."
-            LIMIT 1";
-
-            $resultadoImagen = $conexion->query($sqlImagen);
-
-            $imagen = $resultadoImagen->fetch_assoc();
-
-        ?>
-
-            <tr>
-
-                <td><?= $fila['id_producto'] ?></td>
-
-                <!-- IMAGEN -->
-                <td>
-
-                    <?php if($imagen) { ?>
-
-                        <img
-    src="../../assets/uploads/productos/<?= $imagen['imagen'] ?>"
-    class="table-img"
->
-
-                    <?php } else { ?>
-
-                        <span class="text-muted">
-                            Sin imagen
-                        </span>
+                        </option>
 
                     <?php } ?>
 
-                </td>
+                </select>
 
-                <td><?= $fila['nombre'] ?></td>
+            </div>
 
-                <td>
-                    Bs <?= $fila['precio'] ?>
-                </td>
+            <!-- ESTADO -->
+            <div class="col-md-2">
 
-                <td><?= $fila['stock'] ?></td>
+                <select
+                    name="estado"
+                    class="form-select"
+                >
 
-                <td><?= $fila['nombre_categoria'] ?></td>
+                    <option value="">
+                        Todos
+                    </option>
 
-                <td><?= $fila['estado'] ?></td>
+                    <option
+                        value="disponible"
 
-                <td><?= $fila['ventas_totales'] ?></td>
-
-                <!-- BOTONES -->
-                <td>
-
-                    <!-- VER -->
-                    <button
-                        class="btn btn-ver btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modal<?= $fila['id_producto'] ?>"
+                        <?= (($_GET['estado'] ?? '') == 'disponible')
+                            ? 'selected'
+                            : ''
+                        ?>
                     >
-                        Ver
-                    </button>
+                        Disponible
+                    </option>
 
-                    <!-- EDITAR -->
-                    <a
-                        href="editar.php?id=<?= $fila['id_producto'] ?>"
-                        class="btn btn-editar btn-sm"
+                    <option
+                        value="agotado"
+
+                        <?= (($_GET['estado'] ?? '') == 'agotado')
+                            ? 'selected'
+                            : ''
+                        ?>
                     >
-                        Editar
-                    </a>
+                        Agotado
+                    </option>
 
-                    <!-- ELIMINAR -->
-                    <a
-                        href="eliminar.php?id=<?= $fila['id_producto'] ?>"
-                        class="btn btn-eliminar btn-sm"
-                        onclick="return confirm('¿Eliminar producto?')"
+                </select>
+
+            </div>
+
+            <!-- STOCK -->
+            <div class="col-md-2">
+
+                <select
+                    name="stock"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Stock
+                    </option>
+
+                    <option
+                        value="con"
+
+                        <?= (($_GET['stock'] ?? '') == 'con')
+                            ? 'selected'
+                            : ''
+                        ?>
                     >
-                        Eliminar
-                    </a>
+                        Con stock
+                    </option>
 
-                </td>
+                    <option
+                        value="sin"
 
-            </tr>
+                        <?= (($_GET['stock'] ?? '') == 'sin')
+                            ? 'selected'
+                            : ''
+                        ?>
+                    >
+                        Sin stock
+                    </option>
 
-            <?php
+                </select>
 
-            # TODAS LAS IMAGENES DEL PRODUCTO
+            </div>
 
-            $sqlImagenes = "SELECT * FROM producto_imagenes
-            WHERE id_producto = ".$fila['id_producto'];
+            <!-- BOTON -->
+            <div class="col-md-2">
 
-            $imagenes = $conexion->query($sqlImagenes);
+                <button class="btn btn-primary w-100">
 
-            ?>
+                    Filtrar
 
-            <!-- ===================================== -->
-            <!-- MODAL PRODUCTO -->
-            <!-- ===================================== -->
+                </button>
 
-            <div
-                class="modal fade"
-                id="modal<?= $fila['id_producto'] ?>"
-                tabindex="-1"
-            >
+            </div>
 
-                <div class="modal-dialog modal-lg modal-dialog-centered">
+        </form>
 
-                    <div class="modal-content">
+            <table class="table custom-table align-middle">
 
-                        <!-- HEADER -->
-                        <div class="modal-header bg-primary text-white">
+                <thead class="table-dark">
 
-                            <h5 class="modal-title">
+                    <tr>
 
-                                <?= $fila['nombre'] ?>
+                        <th>ID</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th>Ventas Totales</th>
+                        <th>Acciones</th>
 
-                            </h5>
+                    </tr>
 
+                </thead>
+
+                <tbody>
+
+                <?php
+
+                $sql = "SELECT productos.*, categorias.nombre_categoria
+                        FROM productos
+                        INNER JOIN categorias
+                        ON productos.id_categoria = categorias.id_categoria
+                        WHERE 1=1";
+                # FILTRO NOMBRE
+
+        if(!empty($_GET['nombre'])) {
+
+            $nombre = $_GET['nombre'];
+
+            $sql .= " AND productos.nombre
+            LIKE '%$nombre%'";
+
+        }
+
+        # FILTRO CATEGORIA
+
+        if(!empty($_GET['categoria'])) {
+
+            $categoria = $_GET['categoria'];
+
+            $sql .= " AND productos.id_categoria =
+            '$categoria'";
+
+        }
+
+        # FILTRO ESTADO
+
+        if(!empty($_GET['estado'])) {
+
+            $estado = $_GET['estado'];
+
+            $sql .= " AND productos.estado =
+            '$estado'";
+
+        }
+
+        # FILTRO STOCK
+
+        if(!empty($_GET['stock'])) {
+
+            if($_GET['stock'] == "con") {
+
+                $sql .= " AND productos.stock > 0";
+
+            }
+
+            if($_GET['stock'] == "sin") {
+
+                $sql .= " AND productos.stock <= 0";
+
+            }
+
+        }
+
+                $resultado = $conexion->query($sql);
+
+                while($fila = $resultado->fetch_assoc()) {
+
+                    # OBTENER PRIMERA IMAGEN
+
+                    $sqlImagen = "SELECT * FROM producto_imagenes
+                    WHERE id_producto = ".$fila['id_producto']."
+                    LIMIT 1";
+
+                    $resultadoImagen = $conexion->query($sqlImagen);
+
+                    $imagen = $resultadoImagen->fetch_assoc();
+
+                ?>
+
+                    <tr>
+
+                        <td><?= $fila['id_producto'] ?></td>
+
+                        <!-- IMAGEN -->
+                        <td>
+
+                            <?php if($imagen) { ?>
+
+                                <img
+            src="../../assets/uploads/productos/<?= $imagen['imagen'] ?>"
+            class="table-img"
+        >
+
+                            <?php } else { ?>
+
+                                <span class="text-muted">
+                                    Sin imagen
+                                </span>
+
+                            <?php } ?>
+
+                        </td>
+
+                        <td><?= $fila['nombre'] ?></td>
+
+                        <td>
+                            Bs <?= $fila['precio'] ?>
+                        </td>
+
+                        <td><?= $fila['stock'] ?></td>
+
+                        <td><?= $fila['nombre_categoria'] ?></td>
+
+                        <td><?= $fila['estado'] ?></td>
+
+                        <td><?= $fila['ventas_totales'] ?></td>
+
+                        <!-- BOTONES -->
+                        <td>
+
+                            <!-- VER -->
                             <button
-                                type="button"
-                                class="btn-close btn-close-white"
-                                data-bs-dismiss="modal"
-                            ></button>
+                                class="btn btn-ver btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal<?= $fila['id_producto'] ?>"
+                            >
+                                Ver
+                            </button>
 
-                        </div>
+                            <!-- EDITAR -->
+                            <a
+                                href="editar.php?id=<?= $fila['id_producto'] ?>"
+                                class="btn btn-editar btn-sm"
+                            >
+                                Editar
+                            </a>
 
-                        <!-- BODY -->
-                        <div class="modal-body">
+                            <!-- ELIMINAR -->
+                            <a
+                                href="eliminar.php?id=<?= $fila['id_producto'] ?>"
+                                class="btn btn-eliminar btn-sm"
+                                onclick="return confirm('¿Eliminar producto?')"
+                            >
+                                Eliminar
+                            </a>
 
-                            <div class="row">
+                        </td>
 
-                                <!-- GALERIA -->
-                                <div class="col-md-6">
+                    </tr>
 
-                                    <div class="row">
+                    <?php
 
-                                    <?php while($img = $imagenes->fetch_assoc()) { ?>
+                    # TODAS LAS IMAGENES DEL PRODUCTO
 
-                                        <div class="col-6 mb-3">
+                    $sqlImagenes = "SELECT * FROM producto_imagenes
+                    WHERE id_producto = ".$fila['id_producto'];
 
-                                            <img
-                                                src="../../assets/uploads/productos/<?= $img['imagen'] ?>"
+                    $imagenes = $conexion->query($sqlImagenes);
 
-                                                class="img-fluid rounded shadow"
+                    ?>
 
-                                                style="
-                                                    height: 180px;
-                                                    object-fit: cover;
-                                                    width: 100%;
-                                                    cursor: pointer;
-                                                "
+                    <!-- ===================================== -->
+                    <!-- MODAL PRODUCTO -->
+                    <!-- ===================================== -->
 
-                                                data-bs-toggle="modal"
+                    <div
+                        class="modal fade"
+                        id="modal<?= $fila['id_producto'] ?>"
+                        tabindex="-1"
+                    >
 
-                                                data-bs-target="#imagenGrande<?= $img['id_imagen'] ?>"
-                                            >
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
 
-                                        </div>
+                            <div class="modal-content">
 
-                                    <?php } ?>
+                                <!-- HEADER -->
+                                <div class="modal-header bg-primary text-white">
 
-                                    </div>
+                                    <h5 class="modal-title">
+
+                                        <?= $fila['nombre'] ?>
+
+                                    </h5>
+
+                                    <button
+                                        type="button"
+                                        class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"
+                                    ></button>
 
                                 </div>
 
-                                <!-- INFORMACION -->
-                                <div class="col-md-6">
+                                <!-- BODY -->
+                                <div class="modal-body">
 
-                                    <h4>
-                                        <?= $fila['nombre'] ?>
-                                    </h4>
+                                    <div class="row">
 
-                                    <hr>
+                                        <!-- GALERIA -->
+                                        <div class="col-md-6">
 
-                                    <p>
+                                            <div class="row">
 
-                                        <strong>Descripción:</strong>
+                                            <?php while($img = $imagenes->fetch_assoc()) { ?>
 
-                                        <br>
+                                                <div class="col-6 mb-3">
 
-                                        <?= $fila['descripcion'] ?>
+                                                    <img
+                                                        src="../../assets/uploads/productos/<?= $img['imagen'] ?>"
 
-                                    </p>
+                                                        class="img-fluid rounded shadow"
 
-                                    <p>
+                                                        style="
+                                                            height: 180px;
+                                                            object-fit: cover;
+                                                            width: 100%;
+                                                            cursor: pointer;
+                                                        "
 
-                                        <strong>Precio:</strong>
+                                                        data-bs-toggle="modal"
 
-                                        Bs <?= $fila['precio'] ?>
+                                                        data-bs-target="#imagenGrande<?= $img['id_imagen'] ?>"
+                                                    >
 
-                                    </p>
+                                                </div>
 
-                                    <p>
+                                            <?php } ?>
 
-                                        <strong>Stock:</strong>
+                                            </div>
 
-                                        <?= $fila['stock'] ?>
+                                        </div>
 
-                                    </p>
+                                        <!-- INFORMACION -->
+                                        <div class="col-md-6">
 
-                                    <p>
+                                            <h4>
+                                                <?= $fila['nombre'] ?>
+                                            </h4>
 
-                                        <strong>Categoría:</strong>
+                                            <hr>
 
-                                        <?= $fila['nombre_categoria'] ?>
+                                            <p>
 
-                                    </p>
+                                                <strong>Descripción:</strong>
 
-                                    <p>
+                                                <br>
 
-                                        <strong>Estado:</strong>
+                                                <?= $fila['descripcion'] ?>
 
-                                        <?= $fila['estado'] ?>
+                                            </p>
 
-                                    </p>
+                                            <p>
 
-                                    <p>
+                                                <strong>Precio:</strong>
 
-                                        <strong>Ventas Totales:</strong>
+                                                Bs <?= $fila['precio'] ?>
 
-                                        <?= $fila['ventas_totales'] ?>
+                                            </p>
 
-                                    </p>
+                                            <p>
+
+                                                <strong>Stock:</strong>
+
+                                                <?= $fila['stock'] ?>
+
+                                            </p>
+
+                                            <p>
+
+                                                <strong>Categoría:</strong>
+
+                                                <?= $fila['nombre_categoria'] ?>
+
+                                            </p>
+
+                                            <p>
+
+                                                <strong>Estado:</strong>
+
+                                                <?= $fila['estado'] ?>
+
+                                            </p>
+
+                                            <p>
+
+                                                <strong>Ventas Totales:</strong>
+
+                                                <?= $fila['ventas_totales'] ?>
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
@@ -485,100 +489,96 @@ if(!empty($_GET['stock'])) {
 
                     </div>
 
-                </div>
+                    <?php
 
-            </div>
+                    # MODALES IMAGEN GRANDE
 
-            <?php
+                    $sqlImagenesModal = "SELECT * FROM producto_imagenes
+                    WHERE id_producto = ".$fila['id_producto'];
 
-            # MODALES IMAGEN GRANDE
+                    $imagenesModal = $conexion->query($sqlImagenesModal);
 
-            $sqlImagenesModal = "SELECT * FROM producto_imagenes
-            WHERE id_producto = ".$fila['id_producto'];
+                    while($imgModal = $imagenesModal->fetch_assoc()) {
 
-            $imagenesModal = $conexion->query($sqlImagenesModal);
+                    ?>
 
-            while($imgModal = $imagenesModal->fetch_assoc()) {
-
-            ?>
-
-                <!-- MODAL IMAGEN GRANDE -->
-
-<div
-    class="modal fade"
-    id="imagenGrande<?= $imgModal['id_imagen'] ?>"
-    tabindex="-1"
->
-
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <!-- MODAL IMAGEN GRANDE -->
 
         <div
-            class="modal-content bg-dark border-0 shadow-none"
+            class="modal fade"
+            id="imagenGrande<?= $imgModal['id_imagen'] ?>"
+            tabindex="-1"
         >
 
-            <!-- BOTON X -->
-            <div class="modal-header border-0 p-2">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                <button
-                    type="button"
-                    class="btn-close btn-close-white ms-auto"
-
-                    data-bs-dismiss="modal"
-
-                    onclick="
-                        setTimeout(() => {
-
-                            const modalProducto =
-                            new bootstrap.Modal(
-                                document.getElementById(
-                                    'modal<?= $fila['id_producto'] ?>'
-                                )
-                            );
-
-                            modalProducto.show();
-
-                        }, 200);
-                    "
-                ></button>
-
-            </div>
-
-            <!-- IMAGEN -->
-            <div class="modal-body text-center p-0">
-
-                <img
-                    src="../../assets/uploads/productos/<?= $imgModal['imagen'] ?>"
-
-                    class="img-fluid rounded shadow"
-
-                    style="
-                        max-height: 90vh;
-                        width: auto;
-                        object-fit: contain;
-                    "
+                <div
+                    class="modal-content bg-dark border-0 shadow-none"
                 >
+
+                    <!-- BOTON X -->
+                    <div class="modal-header border-0 p-2">
+
+                        <button
+                            type="button"
+                            class="btn-close btn-close-white ms-auto"
+
+                            data-bs-dismiss="modal"
+
+                            onclick="
+                                setTimeout(() => {
+
+                                    const modalProducto =
+                                    new bootstrap.Modal(
+                                        document.getElementById(
+                                            'modal<?= $fila['id_producto'] ?>'
+                                        )
+                                    );
+
+                                    modalProducto.show();
+
+                                }, 200);
+                            "
+                        ></button>
+
+                    </div>
+
+                    <!-- IMAGEN -->
+                    <div class="modal-body text-center p-0">
+
+                        <img
+                            src="../../assets/uploads/productos/<?= $imgModal['imagen'] ?>"
+
+                            class="img-fluid rounded shadow"
+
+                            style="
+                                max-height: 90vh;
+                                width: auto;
+                                object-fit: contain;
+                            "
+                        >
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+                    <?php } ?>
 
-</div>
+                <?php } ?>
 
-            <?php } ?>
+                </tbody>
 
-        <?php } ?>
+            </table>
 
-        </tbody>
+        </div>
 
-    </table>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-<footer><?php include('../../includes/footer.php'); ?>
-</footer>
+<?php include('../../includes/footer.php'); ?>
+
 </html>

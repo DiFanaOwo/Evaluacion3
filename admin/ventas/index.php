@@ -5,8 +5,9 @@ include('../../config/conexion.php');
 include('../../includes/header.php');
 
 ?>
-
-<div class="container mt-5">
+<html>
+    <body>
+        <div class="container mt-5">
 
     <!-- TITULO -->
 
@@ -321,5 +322,9 @@ include('../../includes/header.php');
 <!-- MOSTRAR MODALES FUERA DE LA TABLA -->
 
 <?= $modales ?>
-
 <?php include('../../includes/footer.php'); ?>
+    </body>
+    
+</html>
+
+
