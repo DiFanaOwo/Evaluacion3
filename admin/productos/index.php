@@ -1,6 +1,5 @@
 <?php include('../../config/conexion.php'); ?>
 <?php include('../../includes/header.php'); ?>
-
 <?php include("../../middlewares/admin.php");?>
 
 
@@ -396,21 +395,43 @@
                                                 <div class="col-6 mb-3">
 
                                                     <img
-                                                        src="../../assets/uploads/productos/<?= $img['imagen'] ?>"
+    src="../../assets/uploads/productos/<?= $img['imagen'] ?>"
 
-                                                        class="img-fluid rounded shadow"
+    class="img-fluid rounded shadow"
 
-                                                        style="
-                                                            height: 180px;
-                                                            object-fit: cover;
-                                                            width: 100%;
-                                                            cursor: pointer;
-                                                        "
+    style="
+        height: 180px;
+        object-fit: cover;
+        width: 100%;
+        cursor: pointer;
+    "
 
-                                                        data-bs-toggle="modal"
+    onclick="
+        // CERRAR MODAL PRODUCTO
+        const modalActual =
+        bootstrap.Modal.getInstance(
+            document.getElementById(
+                'modal<?= $fila['id_producto'] ?>'
+            )
+        );
 
-                                                        data-bs-target="#imagenGrande<?= $img['id_imagen'] ?>"
-                                                    >
+        modalActual.hide();
+
+        // ABRIR IMAGEN GRANDE
+        setTimeout(() => {
+
+            const modalImagen =
+            new bootstrap.Modal(
+                document.getElementById(
+                    'imagenGrande<?= $img['id_imagen'] ?>'
+                )
+            );
+
+            modalImagen.show();
+
+        }, 300);
+    "
+>
 
                                                 </div>
 

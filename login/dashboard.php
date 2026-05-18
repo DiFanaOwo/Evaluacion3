@@ -53,7 +53,7 @@ session_start();
 
 if($_SESSION["rol"] != "admin") {
 
-    header("Location: login.php");
+    header("Location: ../cliente/productos.php");
 
     exit();
 

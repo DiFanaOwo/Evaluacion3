@@ -1,12 +1,11 @@
 <?php
 
 if(session_status() == PHP_SESSION_NONE) {
-
     session_start();
-
-
 }
+
 $base_url = "/Evaluacion3/";
+
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +20,7 @@ $base_url = "/Evaluacion3/";
         content="width=device-width, initial-scale=1.0"
     >
 
+    <title>Ingeniosos</title>
 
     <!-- CSS -->
 
@@ -53,8 +53,28 @@ $base_url = "/Evaluacion3/";
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     >
 
+    <style>
+
+        html,
+        body{
+            height:100%;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .page-content{
+            flex:1;
+        }
+
+    </style>
+
 </head>
 
+<body>
 
 <!-- DECORACIÓN -->
 
@@ -68,7 +88,6 @@ $base_url = "/Evaluacion3/";
             background: var(--accent-yellow);
             top: 100px;
             left: -100px;
-            
         "
     ></div>
 
@@ -91,34 +110,13 @@ $base_url = "/Evaluacion3/";
             >
 
             <span class="logo-text">
-
                 Ingeniosos
-
             </span>
 
         </a>
 
-        <!-- NAV -->
 
-        <nav class="navbar">
-
-            <a href="#" class="nav-btn active">
-
-                <i class="fas fa-home"></i>
-
-                Inicio
-
-            </a>
-
-            <a href="#" class="nav-btn">
-
-                <i class="fas fa-book"></i>
-
-                Libros
-
-            </a>
-
-        </nav>
+        
 
         <!-- SEARCH -->
 
@@ -136,75 +134,76 @@ $base_url = "/Evaluacion3/";
 
         <div class="header-icons">
 
-    <!-- PERFIL -->
+            <!-- PERFIL -->
 
-    <button
-        class="icon-btn"
-        title="Mi Perfil"
-    >
+                        <a
+                href="<?= $base_url ?>login/login.php"
+                class="icon-btn"
+                title="Cerrar sesión"
+            >
 
-        <i class="fas fa-user"></i>
+                <i class="fas fa-user"></i>
 
-    </button>
+            </a>
 
-    <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "cliente") { ?>
+            <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "cliente") { ?>
 
-        <!-- FAVORITOS -->
+                <!-- FAVORITOS -->
 
-        <a
-            href="<?= $base_url ?>cliente/favoritos.php"
-            class="icon-btn"
-            title="Favoritos"
-        >
+                <a
+                    href="<?= $base_url ?>cliente/favoritos.php"
+                    class="icon-btn"
+                    title="Favoritos"
+                >
 
-            <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
 
-            <span class="icon-badge">
+                    <span class="icon-badge">
+                        3
+                    </span>
 
-                3
+                </a>
 
-            </span>
+                <!-- CARRITO -->
 
-        </a>
+                <a
+                    href="<?= $base_url ?>cliente/carrito.php"
+                    class="icon-btn"
+                    title="Carrito"
+                >
 
-        <!-- CARRITO -->
+                    <i class="fas fa-shopping-cart"></i>
 
-        <a
-            href="<?= $base_url ?>cliente/carrito.php"            
-            class="icon-btn"
-            title="Carrito"
-        >
+                    <span class="icon-badge">
+                        1
+                    </span>
 
-            <i class="fas fa-shopping-cart"></i>
+                </a>
 
-            <span class="icon-badge">
+            <?php } ?>
 
-                1
+            <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin") { ?>
 
-            </span>
+                <!-- HISTORIAL -->
 
-        </a>
+                <a
+                    href="<?= $base_url ?>admin/ventas/index.php"
+                    class="icon-btn"
+                    title="Historial de Compras"
+                >
 
-    <?php } ?>
+                    <i class="fas fa-receipt"></i>
 
-    <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin") { ?>
+                </a>
 
-        <!-- HISTORIAL COMPRAS -->
+            <?php } ?>
 
-        <a
-            href="<?= $base_url ?>admin/ventas/index.php"
-            class="icon-btn"
-            title="Historial de Compras"
-        >
-
-            <i class="fas fa-receipt"></i>
-
-        </a>
-
-    <?php } ?>
-
-</div>
+        </div>
 
     </div>
 
 </header>
+
+<!-- CONTENIDO -->
+
+<div class="page-content">

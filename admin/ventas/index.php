@@ -4,22 +4,18 @@ include('../../config/conexion.php');
 
 include('../../includes/header.php');
 
-
 include("../../middlewares/admin.php");
 
 ?>
-<html>
-    <body>
-        <div class="container mt-5">
+
+<div class="container mt-5">
 
     <!-- TITULO -->
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <h2 class="fw-bold">
-
             Historial de Compras
-
         </h2>
 
     </div>
@@ -66,7 +62,6 @@ include("../../middlewares/admin.php");
 
             $resultado = $conexion->query($sql);
 
-            // GUARDAR MODALES
             $modales = "";
 
             while($pedido = $resultado->fetch_assoc()) {
@@ -75,43 +70,21 @@ include("../../middlewares/admin.php");
 
                 <tr>
 
-                    <td>
+                    <td>#<?= $pedido['id_pedido'] ?></td>
 
-                        #<?= $pedido['id_pedido'] ?>
+                    <td><?= $pedido['nombre'] ?></td>
 
-                    </td>
+                    <td><?= $pedido['fecha_pedido'] ?></td>
 
-                    <td>
+                    <td>Bs <?= $pedido['total'] ?></td>
 
-                        <?= $pedido['nombre'] ?>
-
-                    </td>
-
-                    <td>
-
-                        <?= $pedido['fecha_pedido'] ?>
-
-                    </td>
-
-                    <td>
-
-                        Bs <?= $pedido['total'] ?>
-
-                    </td>
-
-                    <td>
-
-                        <?= $pedido['estado_pedido'] ?>
-
-                    </td>
+                    <td><?= $pedido['estado_pedido'] ?></td>
 
                     <td>
 
                         <button
                             class="btn btn-ver btn-sm"
-
                             data-bs-toggle="modal"
-
                             data-bs-target="#modal<?= $pedido['id_pedido'] ?>"
                         >
 
@@ -124,8 +97,6 @@ include("../../middlewares/admin.php");
                 </tr>
 
             <?php
-
-            // CONSULTA DETALLE
 
             $sqlDetalle = "SELECT detalle_pedido.*,
                             productos.nombre
@@ -141,7 +112,6 @@ include("../../middlewares/admin.php");
 
             $detalles = $conexion->query($sqlDetalle);
 
-            // EMPEZAR BUFFER
             ob_start();
 
             ?>
@@ -158,14 +128,10 @@ include("../../middlewares/admin.php");
 
                     <div class="modal-content">
 
-                        <!-- HEADER -->
-
                         <div class="modal-header bg-primary text-white">
 
                             <h5 class="modal-title">
-
                                 Pedido #<?= $pedido['id_pedido'] ?>
-
                             </h5>
 
                             <button
@@ -176,71 +142,42 @@ include("../../middlewares/admin.php");
 
                         </div>
 
-                        <!-- BODY -->
-
                         <div class="modal-body">
-
-                            <!-- INFO PEDIDO -->
 
                             <div class="mb-4">
 
-                                <h5>
-
-                                    Información del Pedido
-
-                                </h5>
+                                <h5>Información del Pedido</h5>
 
                                 <hr>
 
                                 <p>
-
                                     <strong>Cliente:</strong>
-
                                     <?= $pedido['nombre'] ?>
-
                                 </p>
 
                                 <p>
-
                                     <strong>Fecha:</strong>
-
                                     <?= $pedido['fecha_pedido'] ?>
-
                                 </p>
 
                                 <p>
-
                                     <strong>Método Pago:</strong>
-
                                     <?= $pedido['nombre_metodo'] ?>
-
                                 </p>
 
                                 <p>
-
                                     <strong>Total:</strong>
-
                                     Bs <?= $pedido['total'] ?>
-
                                 </p>
 
                                 <p>
-
                                     <strong>Estado:</strong>
-
                                     <?= $pedido['estado_pedido'] ?>
-
                                 </p>
 
                             </div>
 
-                            <!-- PRODUCTOS -->
-
-                            <h5>
-
-                                Productos Comprados
-
-                            </h5>
+                            <h5>Productos Comprados</h5>
 
                             <hr>
 
@@ -265,29 +202,13 @@ include("../../middlewares/admin.php");
 
                                     <tr>
 
-                                        <td>
+                                        <td><?= $detalle['nombre'] ?></td>
 
-                                            <?= $detalle['nombre'] ?>
+                                        <td><?= $detalle['cantidad'] ?></td>
 
-                                        </td>
+                                        <td>Bs <?= $detalle['precio_unitario'] ?></td>
 
-                                        <td>
-
-                                            <?= $detalle['cantidad'] ?>
-
-                                        </td>
-
-                                        <td>
-
-                                            Bs <?= $detalle['precio_unitario'] ?>
-
-                                        </td>
-
-                                        <td>
-
-                                            Bs <?= $detalle['subtotal'] ?>
-
-                                        </td>
+                                        <td>Bs <?= $detalle['subtotal'] ?></td>
 
                                     </tr>
 
@@ -307,10 +228,9 @@ include("../../middlewares/admin.php");
 
             <?php
 
-            // GUARDAR MODAL
             $modales .= ob_get_clean();
 
-            } // FIN WHILE
+            }
 
             ?>
 
@@ -322,12 +242,6 @@ include("../../middlewares/admin.php");
 
 </div>
 
-<!-- MOSTRAR MODALES FUERA DE LA TABLA -->
-
 <?= $modales ?>
+
 <?php include('../../includes/footer.php'); ?>
-    </body>
-    
-</html>
-
-
