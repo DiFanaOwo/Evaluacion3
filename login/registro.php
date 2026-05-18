@@ -1,4 +1,5 @@
 <?php
+
 include("../config/conexion.php");
 
 $mensaje = "";
@@ -21,15 +22,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensaje = "Todos los campos son obligatorios";
 
     }
-    // Validar confirmación de contraseña
+
+    // Validar patrón contraseña
+    elseif (
+        !preg_match(
+            "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/",
+            $password
+        )
+    ) {
+
+        $mensaje = "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número";
+
+    }
+
+    // Confirmar contraseña
     elseif ($password != $confirmarPassword) {
 
         $mensaje = "Las contraseñas no coinciden";
 
     }
+
     else {
 
-        // Verificar si el correo ya existe
+        // Verificar correo existente
         $sql = "SELECT id_usuario FROM usuario WHERE correo = ?";
 
         $stmt = $conexion->prepare($sql);
@@ -47,7 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             // Encriptar contraseña
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $passwordHash = password_hash(
+                $password,
+                PASSWORD_DEFAULT
+            );
 
             // Insertar usuario
             $sqlInsert = "INSERT INTO usuario
@@ -90,19 +108,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="css.css">
+
 </head>
 
-<body class="bg-dark d-flex justify-content-center align-items-center vh-100">
+<body>
 
-    <div class="card shadow p-4" style="width: 400px; border-radius: 15px;">
+    <div class="auth-card">
 
-        <h2 class="text-center mb-4">
-            Registro de Usuario
+        <h2 class="auth-title">
+            Crear Cuenta
         </h2>
+
+        <p class="text-center mb-4">
+            Únete a nuestra tienda
+        </p>
 
         <?php if ($mensaje != ""): ?>
 
-            <div class="alert alert-info">
+            <div class="alert alert-warning">
                 <?php echo $mensaje; ?>
             </div>
 
@@ -114,35 +138,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 type="text"
                 name="nombre"
                 class="form-control mb-3"
-                placeholder="Nombre Completo">
+                placeholder="Nombre Completo"
+                required>
 
             <input
                 type="email"
                 name="correo"
                 class="form-control mb-3"
-                placeholder="Correo Electrónico">
+                placeholder="Correo Electrónico"
+                required>
 
             <input
                 type="password"
                 name="password"
-                class="form-control mb-3"
-                placeholder="Contraseña">
+                class="form-control mb-2"
+                placeholder="Contraseña"
+                required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+                title="Mínimo 8 caracteres, una mayúscula, una minúscula y un número">
+
+            <small class="text-light d-block mb-3">
+                Debe contener mínimo 8 caracteres,
+                una mayúscula, una minúscula y un número.
+            </small>
 
             <input
                 type="password"
                 name="confirmar_password"
-                class="form-control mb-3"
-                placeholder="Confirmar Contraseña">
+                class="form-control mb-4"
+                placeholder="Confirmar Contraseña"
+                required>
 
-            <button class="btn btn-primary w-100">
+            <button class="btn-auth">
                 Registrarse
             </button>
 
         </form>
 
-        <a href="login.php" class="text-center mt-3">
-            Ya tengo cuenta
-        </a>
+        <div class="text-center mt-4">
+
+            <a href="../login/login.php" class="auth-link">
+                Ya tengo cuenta
+            </a>
+
+        </div>
 
     </div>
 

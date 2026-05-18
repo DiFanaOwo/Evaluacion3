@@ -145,7 +145,7 @@ body {
 /* SEARCH BAR */
 .search-container {
   flex-shrink: 0;
-}
+
 
   position: absolute;
   top: 0;
@@ -156,6 +156,7 @@ body {
   transition: left 0.3s ease;
   border-radius: 50px;
 }
+
 
 .nav-btn:hover::before {
   left: 100%;
