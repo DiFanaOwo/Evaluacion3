@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../config/conexion.php';
+include("../middlewares/auth.php");
 
 if (!isset($_SESSION['favorites']) || !is_array($_SESSION['favorites'])) {
 	$_SESSION['favorites'] = [];

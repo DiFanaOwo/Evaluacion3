@@ -4,6 +4,9 @@ include('../../config/conexion.php');
 
 include('../../includes/header.php');
 
+
+include("../../middlewares/admin.php");
+
 ?>
 
 <div class="container mt-5">

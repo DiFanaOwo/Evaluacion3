@@ -1,5 +1,6 @@
 <?php
 include('../../config/conexion.php');
+include("../../middlewares/admin.php");
 $categorias = $conexion->query("SELECT * FROM categorias");
 
 ?>

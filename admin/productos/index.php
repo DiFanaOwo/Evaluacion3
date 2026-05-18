@@ -1,6 +1,8 @@
 <?php include('../../config/conexion.php'); ?>
 <?php include('../../includes/header.php'); ?>
 
+<?php include("../../middlewares/admin.php");?>
+
 
 <head>
     <meta charset="UTF-8">

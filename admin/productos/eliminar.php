@@ -1,5 +1,6 @@
 <?php
 include('../../config/conexion.php');
+include("../../middlewares/admin.php");
 
 $id = $_GET['id'];
 

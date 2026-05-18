@@ -1,11 +1,12 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Verificar si existe sesión
-if(!isset($_SESSION["usuario"])){
+if (!isset($_SESSION["usuario"])) {
 
-    header("Location: ../login/login.php");
+    header("Location: /evaluacion3Web/Evaluacion3/login/login.php");
     exit();
 
 }
