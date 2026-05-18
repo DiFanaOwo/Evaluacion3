@@ -1,6 +1,6 @@
 <footer class="bg-dark text-white text-center p-3 mt-5">
 
-    © 2025 Tienda de Libros
+    © 2025 Tienda de Libros 9
 
 </footer>
 
