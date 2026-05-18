@@ -8,8 +8,9 @@ include('../../includes/header.php');
 include("../../middlewares/admin.php");
 
 ?>
-
-<div class="container mt-5">
+<html>
+    <body>
+        <div class="container mt-5">
 
     <!-- TITULO -->
 
@@ -324,5 +325,9 @@ include("../../middlewares/admin.php");
 <!-- MOSTRAR MODALES FUERA DE LA TABLA -->
 
 <?= $modales ?>
-
 <?php include('../../includes/footer.php'); ?>
+    </body>
+    
+</html>
+
+
