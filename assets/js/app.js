@@ -320,5 +320,7 @@ function debounce(func, wait) {
     };
 }
 
+
+
 // Log de inicialización
 console.log('%c✨ Ingeniosos Cargado', 'font-size: 20px; color: #00C9D7; font-weight: bold;');
